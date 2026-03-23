@@ -20,7 +20,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 handlebars.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
-handlebars.registerHelper('eq', function(a, b) { return a === b; });
 app.set('view options', { layout: 'layouts/layout' });
 
 app.use(logger('dev'));
