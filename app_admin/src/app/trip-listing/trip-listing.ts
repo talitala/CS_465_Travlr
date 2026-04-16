@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { trips } from '../data/trips';
 import { CommonModule } from '@angular/common';
 import { TripCardComponent } from '../trip-card/trip-card';
 import { Trip } from '../../models/trip';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./trip-listing.css']
 })
 export class TripListing implements OnInit {
-  trips: any[] = trips;
+  trips: Trip[] = [];
   message = '';
 
   constructor(
@@ -45,6 +44,20 @@ export class TripListing implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit');
+    this.tripDataService.trips$.subscribe({
+      next: (value: Trip[]) => {
+        this.trips = value;
+        if (value.length > 0) {
+          this.message = 'There are ' + value.length + ' trips available.';
+        } else {
+          this.message = 'There were no trips retrieved from the database';
+        }
+      },
+      error: (error: any) => {
+        console.log('Error: ' + error);
+      }
+    });
+
     this.getStuff();
   }
 }

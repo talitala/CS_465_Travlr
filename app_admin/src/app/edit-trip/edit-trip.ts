@@ -10,13 +10,14 @@ import { Trip } from '../../models/trip';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './edit-trip.html',
-  styleUrls: ['./edit-trip.css']
+  styleUrls: ['./edit-trip.css'],
 })
 export class EditTrip implements OnInit {
   public editForm!: FormGroup;
   trip!: Trip;
   submitted = false;
   message: string = '';
+  originalCode: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,8 +33,7 @@ export class EditTrip implements OnInit {
       return;
     }
 
-    console.log('EditTripComponent::ngOnInit');
-    console.log('tripcode:' + tripCode);
+    this.originalCode = tripCode;
 
     this.editForm = this.formBuilder.group({
       _id: [],
@@ -67,7 +67,7 @@ export class EditTrip implements OnInit {
   public onSubmit() {
     this.submitted = true;
     if (this.editForm.valid) {
-      this.tripDataService.updateTrip(this.editForm.value).subscribe({
+      this.tripDataService.updateTrip(this.editForm.value, this.originalCode).subscribe({
         next: (value: any) => {
           console.log(value);
           this.router.navigate(['']);

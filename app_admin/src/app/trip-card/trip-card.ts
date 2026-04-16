@@ -9,7 +9,7 @@ selector: 'app-trip-card',
 standalone: true,
 imports: [CommonModule],
 templateUrl: './trip-card.html',
-styleUrl: './trip-card.css'
+styleUrls: ['./trip-card.css']
 })
 
 export class TripCardComponent implements OnInit {
