@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angula
 
 import { Router } from "@angular/router";
 import { TripData } from '../../services/trip-data';
+import { AuthenticationService } from '../../services/authentication';
 @Component({
 selector: 'app-add-trip',
 standalone: true,
@@ -17,7 +18,8 @@ submitted = false;
 constructor(
   private formBuilder: FormBuilder,
   private router: Router,
-  private tripService: TripData
+  private tripService: TripData,
+  private authenticationService: AuthenticationService
 ) { }
 ngOnInit() {
 this.addForm = this.formBuilder.group({
@@ -47,6 +49,11 @@ console.log('Error: ' + error);
 }});
 }
 }
+
+public isLoggedIn(): boolean {
+  return this.authenticationService.isLoggedIn();
+}
+
 // get the form short name to access the form fields
 get f() { return this.addForm.controls; }
 }

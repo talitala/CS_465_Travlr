@@ -1,5 +1,6 @@
 <div class="col-md-4">
 <h2 class="text-center">Add Trip</h2>
+<div *ngIf="isLoggedIn()">
 <form *ngIf="addForm" [formGroup]="addForm"
 (ngSubmit)="onSubmit()">
 <div class="form-group">
@@ -100,4 +101,8 @@ Description is required
 </div>
 <button type="submit" class="btn btn-info">Save</button>
 </form>
+</div>
+<div *ngIf="!isLoggedIn()" class="alert alert-info">
+Please login to add a new trip.
+</div>
 </div>
